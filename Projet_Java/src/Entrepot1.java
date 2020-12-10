@@ -19,6 +19,10 @@ public class Entrepot1 {
 	public static int getNbRangee() {
 		return nbRangee;
 	}
+	public int rien() {
+		int i=1;
+		return i;
+	}
 	public void setNbRangee(int nbRangee) {
 		this.nbRangee = nbRangee;
 	}
