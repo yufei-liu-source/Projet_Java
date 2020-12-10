@@ -1,3 +1,4 @@
+
 public class Lot {
     static int IDMAX = 0;
     int ID;
@@ -19,4 +20,3 @@ public class Lot {
         return volume;
     }
 }
-
