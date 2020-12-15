@@ -1,10 +1,7 @@
-/Entrepot.class
-/Entrepot1.class
-/Lot.class
-/Main.class
-/Meuble.class
-/PieceDetachee.class
-/Planche.class
-/Vis.class
 /worker/
-/Rangee.class
+/Chef.class
+/Equipe.class
+/Ouvrier.class
+/Personne.class
+/material/
+/operation/
