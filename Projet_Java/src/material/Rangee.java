@@ -1,8 +1,5 @@
 package material;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Rangee {
 	private static int count=0;
 	private static int ID;
@@ -11,7 +8,6 @@ public class Rangee {
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
 	private int tableauRangee[] = new int[longueur];
-	private ArrayList<Lot> listeLot= new ArrayList<Lot>();
 	
 	public Rangee(int longueur) {
 		this.longueur=longueur;

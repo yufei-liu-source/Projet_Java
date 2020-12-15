@@ -9,9 +9,9 @@ public class Equipe {
 	private int idEquipe;
 	static int MAX = 4;
 	private Chef c;
-	List<Personne> listEquipe = new ArrayList();
+	ArrayList<Personne> listEquipe = new ArrayList();
 	
-	public Equipe(int idEquipe, Chef c, List<Personne> listEquipe) {
+	public Equipe(int idEquipe, Chef c, ArrayList<Personne> listEquipe) {
 		this.idEquipe = idEquipe;
 		this.c = c;
 		this.listEquipe = listEquipe;
@@ -23,16 +23,16 @@ public class Equipe {
 	 * @return the same list if there are too many workers or if the new worker already in this team
 	 *         else the new list with this new worker
 	 */
-	public Personne recruter(Personne p) {
+	public ArrayList<Personne> recruter(Personne p) {
 		if (listEquipe.size()<MAX) {
 			if (listEquipe.contains(p)){			
-				return (Personne) listEquipe;		
+				return listEquipe;		
 			}		
 			else {			
 				listEquipe.add(p);			
-				return (Personne) listEquipe;
+				return listEquipe;
 			}
-		}else return (Personne) listEquipe;		
+		}else return listEquipe;		
 	}
 	
 	/**
@@ -40,13 +40,13 @@ public class Equipe {
 	 * @param p
 	 * @return the list without this worker, the same list if the worker not in the list
 	 */
-	public Personne licencier(Personne p) {
+	public ArrayList<Personne> licencier(Personne p) {
 		if (listEquipe.contains(p)){
 			listEquipe.remove(p);
-			return (Personne) listEquipe;		
+			return listEquipe;		
 		}		
 		else {					
-			return (Personne) listEquipe;
+			return listEquipe;
 		}	
 	}
 	
