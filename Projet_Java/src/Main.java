@@ -23,22 +23,26 @@ public class Main {
         System.out.println("Longueur d'une rangee : " + saisieLongueurRangee);
         int saisieLongueurRangeeInt= Integer.parseInt(saisieLongueurRangee);
         
-        Rangee [] myRangee = new Rangee[saisieNbRangeeInt];
+        Rangee [] Rangee1 = new Rangee[saisieNbRangeeInt];
         
         for(int i=0;i<saisieNbRangeeInt;i++) {
-                 myRangee[i] = new Rangee(saisieLongueurRangeeInt);
-                 Entrepot.listeRangee.add(myRangee[i]);
+                 Rangee1[i] = new Rangee(saisieLongueurRangeeInt);
+                 Entrepot.listeRangee.add(Rangee1[i]);
+          
              }
             
         	
         	
         System.out.println("Nombre de rangee de l'entrepot : " +Entrepot.getNbRangee());
         System.out.println("Liste des rangees dans l'entrepot : " + Entrepot.getListeRangee());
-        System.out.println("Volume Rangee: " + myRangee[2].getLongueur());
-        System.out.println("Tableau de la rangee 1 : " + Arrays.toString(myRangee[1].getTableauRangee()));
-
+        System.out.println("Volume Rangee: " + Rangee1[1].getLongueur());
         
-        Meuble meuble = new Meuble("Table",new Lot[]{new Lot(new Vis(200,10),1),new Lot(new Planche(1000,500),3)},"Salon",3);
-        meuble.afficherMeuble();
+        Lot lot1 = new Lot(new Vis(200,10),1);
+        Rangee1[1].addLot(lot1);
+        Rangee1[1].addLot(lot1);
+        System.out.println("Tableau de la rangee 1: " + Rangee1[1].getTableauRangee());
+        
+        /*Meuble meuble = new Meuble("Table",new Lot[]{new Lot(new Vis(200,10),1),new Lot(new Planche(1000,500),3)},"Salon",3);
+        meuble.afficherMeuble();*/
     }
 }

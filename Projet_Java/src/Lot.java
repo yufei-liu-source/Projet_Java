@@ -15,6 +15,9 @@ public class Lot {
     public PieceDetachee getPieceDetachee() {
         return pieceDetachee;
     }
+    
+    	
+    
 
     public int getVolume() {
         return volume;

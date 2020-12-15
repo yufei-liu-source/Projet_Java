@@ -10,7 +10,7 @@ public class Rangee {
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
 	private int tableauRangee[] = new int[longueur];
-	private ArrayList<Lot> listeLot= new ArrayList<Lot>();
+	static ArrayList<Lot> listeLot= new ArrayList<Lot>();
 	
 	public Rangee(int longueur) {
 		this.longueur=longueur;
@@ -18,7 +18,7 @@ public class Rangee {
 		ID=count++;
 		}
 		else {
-			System.out.println("NON");
+			System.out.println("Le nombre maximum de rangee est de "+ Entrepot.getNbRangee());
 		}
 
 	}
@@ -33,6 +33,18 @@ public class Rangee {
 		}
 		ID = iD;
 	}
+    public void addLot(Lot lotA) {
+    	for(int i=0; i<lotA.getVolume(); i++) {
+    		if(listeLot==null) {
+    			listeLot.add(lotA);
+    			}
+    		else {
+
+    		}
+			break;
+
+    	}
+    	}
 
 	public int getLongueur() {
 		return longueur;
