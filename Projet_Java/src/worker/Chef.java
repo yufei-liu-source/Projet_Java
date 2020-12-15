@@ -1,5 +1,4 @@
 package worker;
-
 public class Chef extends Personne {
 
 	private String type;
@@ -11,14 +10,6 @@ public class Chef extends Personne {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Personne recruter() {
-		return null;
-		
-	}
-	
-	public Personne licencier() {
-		return null;
-		
-	}
+
 
 }

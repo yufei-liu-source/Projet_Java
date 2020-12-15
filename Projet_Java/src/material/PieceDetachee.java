@@ -1,3 +1,4 @@
+package material;
 public abstract class PieceDetachee {
     String nom;
     double poids;

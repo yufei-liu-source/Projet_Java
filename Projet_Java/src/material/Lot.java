@@ -1,3 +1,4 @@
+package material;
 
 public class Lot {
     static int IDMAX = 0;
