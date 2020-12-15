@@ -39,7 +39,7 @@ public class Rangee {
     			listeLot.add(lotA);
     			}
     		else {
-    			System.out.println("a supprimer");
+
 
     		}
 			break;
