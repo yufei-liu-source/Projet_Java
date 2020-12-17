@@ -11,8 +11,8 @@ public class Rangee {
 	private int largeur=1;
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
-	private int tableauRangee[] = new int[longueur];
-	static ArrayList<Lot> listeLot= new ArrayList<Lot>();
+	public int tableauRangee[] = new int[longueur];
+	
 	
 	public Rangee(int longueur) {
 		this.longueur=longueur;
@@ -35,19 +35,8 @@ public class Rangee {
 		}
 		ID = iD;
 	}
-    public void addLot(Lot lotA) {
-    	for(int i=0; i<lotA.getVolume(); i++) {
-    		if(listeLot==null) {
-    			listeLot.add(lotA);
-    			}
-    		else {
 
 
-    		}
-			break;
-
-    	}
-    	}
 
 	public int getLongueur() {
 		return longueur;
@@ -81,10 +70,14 @@ public class Rangee {
 		this.volume = volume;
 	}
 	public int[] getTableauRangee() {
+
 		return tableauRangee;
 	}
 
 	public void setTableauRangee(int[] tableauRangee) {
+		/*for(int i=0;i<longueur;i++) {
+			tableauRangee[i]=0;
+		}*/
 		this.tableauRangee = tableauRangee;
 	}
 

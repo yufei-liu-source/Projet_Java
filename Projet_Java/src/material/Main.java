@@ -4,8 +4,11 @@ package material;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
+
 
 public class Main {
 
@@ -26,23 +29,41 @@ public class Main {
         int saisieLongueurRangeeInt= Integer.parseInt(saisieLongueurRangee);
         
         Rangee [] Rangee1 = new Rangee[saisieNbRangeeInt];
+        Arrays.fill(Rangee1,new Rangee(saisieNbRangeeInt));
         
         for(int i=0;i<saisieNbRangeeInt;i++) {
-                 Rangee1[i] = new Rangee(saisieLongueurRangeeInt);
-                 Entrepot.listeRangee.add(Rangee1[i]);
+        		int[] listedepart= new int[saisieLongueurRangeeInt];
+        		Arrays.fill(listedepart, 0);
+                Rangee1[i] = new Rangee(saisieLongueurRangeeInt);
+                Rangee1[i].setTableauRangee(listedepart);
+                Entrepot.listeRangee.add(Rangee1[i]);
+                 
           
              }
             
         	
         	
         System.out.println("Nombre de rangee de l'entrepot : " +Entrepot.getNbRangee());
-        System.out.println("Liste des rangees dans l'entrepot : " + Entrepot.getListeRangee());
+        
+        /*System.out.println("Liste des rangees dans l'entrepot : " + Entrepot.getListeRangee().toString());*/
         System.out.println("Volume Rangee: " + Rangee1[1].getLongueur());
+        for(int i=0;i<Entrepot.getNbRangee();i++) {
+            System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
+        }
+
+        /* EXEMPLE OF : Modifying 1st lot in tableauRangee[0]*/
+        
+        Rangee1[0].tableauRangee[0]=1;
+        System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
+
         
         Lot lot1 = new Lot(new Vis(200,10),1);
+        
+        
+        
+        /*Rangee1[1].addLot(lot1);
         Rangee1[1].addLot(lot1);
-        Rangee1[1].addLot(lot1);
-        System.out.println("Tableau de la rangee 1: " + Rangee1[1].getTableauRangee());
+        System.out.println("Tableau de la rangee 1: " + Rangee1[1].getTableauRangee());*/
 
         
         /*Meuble meuble = new Meuble("Table",new Lot[]{new Lot(new Vis(200,10),1),new Lot(new Planche(1000,500),3)},"Salon",3);
