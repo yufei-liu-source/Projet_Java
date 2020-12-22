@@ -7,6 +7,7 @@ public class Meuble {
     Lot[] lotList;
     String piece;
     int dureeDeConstr;
+	public int listeMeubleAC[] = new int[10]; // liste de meuble a construire , NOT SURE TO ADD NOR NOT
 
     public Meuble(String name, Lot[] listLots, String piece, int dureeDeConstr) {
         this.name = name;
@@ -16,12 +17,10 @@ public class Meuble {
     }
 
     public void afficherMeuble(){
-        System.out.println("Ce meuble est : " + name);
-        System.out.println("Il est fait avec : ");
         for (Lot lot : lotList){
             System.out.println(lot.getVolume() + " " + lot.getPieceDetachee().getNom());
         }
-        System.out.println("Il se trouve dans : " + piece);
-        System.out.println("Il prend " + dureeDeConstr + " pour être construit");
+        System.out.println("Ce meuble se trouve dans : " + piece);
+        System.out.println("Ce meuble prend " + dureeDeConstr + " pour etre construit");
     }
 }

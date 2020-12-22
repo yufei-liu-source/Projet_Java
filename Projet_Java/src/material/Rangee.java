@@ -75,9 +75,7 @@ public class Rangee {
 	}
 
 	public void setTableauRangee(int[] tableauRangee) {
-		/*for(int i=0;i<longueur;i++) {
-			tableauRangee[i]=0;
-		}*/
+
 		this.tableauRangee = tableauRangee;
 	}
 
