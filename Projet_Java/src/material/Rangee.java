@@ -1,10 +1,7 @@
 package material;
+import operation.GererLots;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class Rangee {
+public class Rangee implements GererLots{
 	private static int count=0;
 	private static int ID;
 	private int longueur;
@@ -12,7 +9,6 @@ public class Rangee {
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
 	public int tableauRangee[] = new int[longueur];
-	
 	
 	public Rangee(int longueur) {
 		this.longueur=longueur;
@@ -22,7 +18,9 @@ public class Rangee {
 		else {
 			System.out.println("Le nombre maximum de rangee est de "+ Entrepot.getNbRangee());
 		}
-
+		for(int i=0;i<longueur;i++) {
+			tableauRangee[i]=0;
+		}
 	}
 
 	public static int getID() {
@@ -35,8 +33,6 @@ public class Rangee {
 		}
 		ID = iD;
 	}
-
-
 
 	public int getLongueur() {
 		return longueur;
@@ -69,14 +65,129 @@ public class Rangee {
 	public void setVolume(int volume) {
 		this.volume = volume;
 	}
+	
 	public int[] getTableauRangee() {
 
 		return tableauRangee;
 	}
 
+	
 	public void setTableauRangee(int[] tableauRangee) {
 
 		this.tableauRangee = tableauRangee;
+	}
+
+	@Override
+	public void deplacer_lot(Lot l, Rangee r1, int vol, Rangee r2) {
+		// TODO Auto-generated method stub
+		
+		//move out
+		/*for (int i=0;i<r1.tableauRangee.length;i++) {
+			if(r1.tableauRangee[i] == numLot) {
+				vol_r1++;
+			}
+		}
+		
+		if (vol_r1 == 0) {
+			System.out.println("Lot not found in the rangee indicated!");
+		}else if (vol_r1>=vol) {
+			System.out.println("The stock of lot is available");
+			int j = 0;
+			int tmp = vol;
+			while (tmp !=0 && j != r1.tableauRangee.length) {
+				if (r1.tableauRangee[j] == numLot) {
+					r1.tableauRangee[j] = 0;
+					tmp--;
+					j++;
+				}
+			}
+		}else {
+			System.out.println("Not enough stock!");
+		}
+		*/
+		retirer_lot(l,vol,r1);
+		
+		//move in
+		/*
+		for (int i =0; i<r2.tableauRangee.length;i++) {
+			if(r2.tableauRangee[i] == 0) {
+				vol_r2++;
+			}
+		}
+		
+		if (vol_r2 < vol) {
+			System.out.println("Not enough space for new lot!");
+		}else {
+			System.out.println("Enough space for new lot, move effected!");
+			int i = 0;
+			int tmp2 = vol;
+			while (tmp2 != 0 && i != r2.tableauRangee.length) {
+				if (r2.tableauRangee[i] == 0) {
+					r2.tableauRangee[i] = numLot;
+					tmp2--;
+					i++;		
+				}
+			}
+		}
+		*/
+		ajouter_lot(l,vol,r2);
+	}
+
+	@Override
+	public void ajouter_lot(Lot l, int vol, Rangee r) {
+		// TODO Auto-generated method stub
+		int numLot = l.getID();
+		int vol_r = 0;
+		for (int i =0; i<r.tableauRangee.length;i++) {
+			if(r.tableauRangee[i] == 0) {
+				vol_r++;
+			}
+		}
+		
+		if (vol_r<vol) {
+			System.out.println("Not enough space for new lot!");
+		}else {
+			System.out.println("Enough space for new lot, add effected!");
+			int i = 0;
+			int tmp3 = vol;
+			while (tmp3 != 0 && i != r.tableauRangee.length) {
+				if (r.tableauRangee[i] == 0) {
+					r.tableauRangee[i] = numLot;
+					tmp3--;
+					i++;
+				}
+			}
+		}
+	}
+
+	@Override
+	public void retirer_lot(Lot l, int vol, Rangee r) {
+		// TODO Auto-generated method stub
+		int numLot = l.getID();
+		int vol_r = 0 ;    //volume of Lot in Rangee r
+		
+		for (int i=0;i<r.tableauRangee.length;i++) {
+			if(r.tableauRangee[i] == numLot) {
+				vol_r++;
+			}
+		}
+		
+		if (vol_r == 0) {
+			System.out.println("Lot not found in the rangee indicated!");
+		}else if (vol_r >=vol) {
+			System.out.println("The stock of lot is available");
+			int j = 0;
+			int tmp2 = vol;
+			while (tmp2 !=0 && j != r.tableauRangee.length) {
+				if (r.tableauRangee[j] == numLot) {
+					r.tableauRangee[j] = 0;
+					tmp2--;
+					j++;
+				}
+			}
+		}else {
+			System.out.println("Not enough stock!");
+		}
 	}
 
 

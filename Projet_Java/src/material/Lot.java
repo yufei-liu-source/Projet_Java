@@ -17,11 +17,25 @@ public class Lot {
     public PieceDetachee getPieceDetachee() {
         return pieceDetachee;
     }
-    
-    	
-    
 
-    public int getVolume() {
+
+    public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+
+	public void setPieceDetachee(PieceDetachee pieceDetachee) {
+		this.pieceDetachee = pieceDetachee;
+	}
+
+	public int getVolume() {
         return volume;
     }
 }
