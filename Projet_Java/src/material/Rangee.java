@@ -18,9 +18,6 @@ public class Rangee implements GererLots{
 		else {
 			System.out.println("Le nombre maximum de rangee est de "+ Entrepot.getNbRangee());
 		}
-		for(int i=0;i<longueur;i++) {
-			tableauRangee[i]=0;
-		}
 	}
 
 	public static int getID() {
