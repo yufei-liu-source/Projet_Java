@@ -8,7 +8,7 @@ public class Rangee implements GererLots{
 	private int largeur=1;
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
-	public int tableauRangee[] = new int[longueur];
+	public int tableauLot[] = new int[longueur];
 	
 	public Rangee(int longueur) {
 		this.longueur=longueur;
@@ -17,9 +17,6 @@ public class Rangee implements GererLots{
 		}
 		else {
 			System.out.println("Le nombre maximum de rangee est de "+ Entrepot.getNbRangee());
-		}
-		for(int i=0;i<longueur;i++) {
-			tableauRangee[i]=0;
 		}
 	}
 
@@ -68,13 +65,13 @@ public class Rangee implements GererLots{
 	
 	public int[] getTableauRangee() {
 
-		return tableauRangee;
+		return tableauLot;
 	}
 
 	
-	public void setTableauRangee(int[] tableauRangee) {
+	public void setTableauLot(int[] tableauRangee) {
 
-		this.tableauRangee = tableauRangee;
+		this.tableauLot = tableauRangee;
 	}
 
 	@Override
@@ -138,8 +135,8 @@ public class Rangee implements GererLots{
 		// TODO Auto-generated method stub
 		int numLot = l.getID();
 		int vol_r = 0;
-		for (int i =0; i<r.tableauRangee.length;i++) {
-			if(r.tableauRangee[i] == 0) {
+		for (int i =0; i<r.tableauLot.length;i++) {
+			if(r.tableauLot[i] == 0) {
 				vol_r++;
 			}
 		}
@@ -150,9 +147,9 @@ public class Rangee implements GererLots{
 			System.out.println("Enough space for new lot, add effected!");
 			int i = 0;
 			int tmp3 = vol;
-			while (tmp3 != 0 && i != r.tableauRangee.length) {
-				if (r.tableauRangee[i] == 0) {
-					r.tableauRangee[i] = numLot;
+			while (tmp3 != 0 && i != r.tableauLot.length) {
+				if (r.tableauLot[i] == 0) {
+					r.tableauLot[i] = numLot;
 					tmp3--;
 					i++;
 				}
@@ -166,8 +163,8 @@ public class Rangee implements GererLots{
 		int numLot = l.getID();
 		int vol_r = 0 ;    //volume of Lot in Rangee r
 		
-		for (int i=0;i<r.tableauRangee.length;i++) {
-			if(r.tableauRangee[i] == numLot) {
+		for (int i=0;i<r.tableauLot.length;i++) {
+			if(r.tableauLot[i] == numLot) {
 				vol_r++;
 			}
 		}
@@ -178,9 +175,9 @@ public class Rangee implements GererLots{
 			System.out.println("The stock of lot is available");
 			int j = 0;
 			int tmp2 = vol;
-			while (tmp2 !=0 && j != r.tableauRangee.length) {
-				if (r.tableauRangee[j] == numLot) {
-					r.tableauRangee[j] = 0;
+			while (tmp2 !=0 && j != r.tableauLot.length) {
+				if (r.tableauLot[j] == numLot) {
+					r.tableauLot[j] = 0;
 					tmp2--;
 					j++;
 				}

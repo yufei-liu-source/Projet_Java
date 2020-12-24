@@ -16,6 +16,8 @@ public class Main {
     	
 
         Meuble table = new Meuble("Table",new Lot[]{new Lot(new Vis(200,10),1),new Lot(new Planche(1000,500),3)},"Salon",3);
+        Meuble chaise = new Meuble("Chaise",new Lot[]{new Lot(new Vis(200,10),1),new Lot(new Planche(1000,500),2)},"Salon",2);
+        Meuble bibliotheque = new Meuble("Bibliotheque",new Lot[]{new Lot(new Vis(200,10),2),new Lot(new Planche(1000,500),4)},"Salon",4);
         
     	
     	
@@ -41,7 +43,7 @@ public class Main {
         		int[] listedepart= new int[saisieLongueurRangeeInt];
         		Arrays.fill(listedepart, 0);
                 Rangee1[i] = new Rangee(saisieLongueurRangeeInt);
-                Rangee1[i].setTableauRangee(listedepart);
+                Rangee1[i].setTableauLot(listedepart);
                 Entrepot.listeRangee.add(Rangee1[i]);
                  
           
@@ -49,33 +51,30 @@ public class Main {
             
         	
         	
-        System.out.println("Nombre de rangee de l'entrepot : " +Entrepot.getNbRangee());
-        
-        /*System.out.println("Liste des rangees dans l'entrepot : " + Entrepot.getListeRangee().toString());*/
+        // A TESTER AVEC JUNIT System.out.println("Nombre de rangee de l'entrepot : " +Entrepot.getNbRangee());
+        // A TESTER AVEC JUNIT System.out.println("Liste des rangees dans l'entrepot : " + Entrepot.getListeRangee().toString());
 
         System.out.println("Volume Rangee: " + Rangee1[1].getLongueur());
         for(int i=0;i<Entrepot.getNbRangee();i++) {
             System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
         }
 
-        /* EXEMPLE OF : Modifying lots in tableauRangee[0]*/
+
         
-        Rangee1[0].tableauRangee[0]=1;
-        Rangee1[0].tableauRangee[1]=2;
-        Rangee1[0].tableauRangee[2]=2;
-        Rangee1[1].tableauRangee[3]=2;
-        Rangee1[1].tableauRangee[1]=1;
+        Rangee1[0].tableauLot[0]=1;
+        Rangee1[0].tableauLot[1]=2;
+        Rangee1[0].tableauLot[2]=2;
+        Rangee1[1].tableauLot[3]=1;
+        Rangee1[1].tableauLot[1]=1;
         // RANGEE1 = 1 2 2 0
         // rangee2= 0 1 0 2 
         System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
-        System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
+        System.out.println("Rangee numero 2 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
 
-  
-        Lot lot1 = new Lot(new Vis(200,10),1);
-        
-        
         /*Debut de la journee*/
+        
         int countJour = 0;
+        
         System.out.println("Que voulez-vous faire aujourd'hui ?"+"\n"+"RIEN [0]  ; MANAGER LES LOTS [1] ; FAIRE UN MEUBLE [2]"+"\n"+"Tapper le chiffre correspondant: ");
         String choixJour = myObj.nextLine();  // Read user input
         int choixJourInt= Integer.parseInt(choixJour);
@@ -102,35 +101,21 @@ public class Main {
             	//Verification pour la creation du meuble :
             	
         		if(choixMeubleInt==1) {
-        			System.out.println("Pour creer une Table: ");
-        			table.afficherMeuble();
-        			//Verification des pieces detaches
-        			int countVis=0;
-        			for(int i = 0; i<Entrepot.getNbRangee();i++) {
-        				for(int j=0; j<Rangee1[i].getLongueur();j++) {
-        					if (Rangee1[i].tableauRangee[j]== 1) { 	//exemple si ID du lot vis =1 
-        						countVis++;
-        					}
-        				}
-        			}
-        			int countPlanche=0;
-        			for(int l = 0; l<Entrepot.getNbRangee();l++) {
-                		for(int k=0; k<Rangee1[l].getLongueur();k++) {
-                			if (Rangee1[l].tableauRangee[k]== 2) { 	//exemple si ID du lot planche =2
-                				countPlanche++;
-                					}
-                		}
-        			}
-                	if (countPlanche>=3 && countVis>=1) {
-                		System.out.println("Vous pouvez construire une table !");
-                	}
-                	else {
-                		System.out.println("Non pas possible");
-                	}
-                		}
+        			table.construireMeuble(table, Rangee1);
+        		}
+        		//creer une bibliotheque
+        		else if(choixMeubleInt==2) {
+        			bibliotheque.construireMeuble(bibliotheque, Rangee1);
+        		}
+        		// Creer une chaise
+        		else if(choixMeubleInt==3) {
+        			chaise.construireMeuble(chaise, Rangee1);
+        		}
         			
-        		//added test
+        		//added test HEAD
         	
+
+        	//branch 'master' of https://github.com/yufei-liu-source/Projet_Java.git
     }
         	
     }
@@ -140,3 +125,4 @@ public class Main {
 
     
 }
+
