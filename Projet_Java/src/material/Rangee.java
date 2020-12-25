@@ -1,14 +1,14 @@
 package material;
-import operation.GererLots;
 
-public class Rangee implements GererLots{
-	private static int count=0;
-	private static int ID;
+public class Rangee {
+	public static int count=0;
+	public static int ID;
 	private int longueur;
 	private int largeur=1;
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
 	public int tableauRangee[] = new int[longueur];
+	static boolean retirable;
 	
 	public Rangee(int longueur) {
 		this.longueur=longueur;
@@ -18,6 +18,7 @@ public class Rangee implements GererLots{
 		else {
 			System.out.println("Le nombre maximum de rangee est de "+ Entrepot.getNbRangee());
 		}
+		retirable = false;
 	}
 
 	public static int getID() {
@@ -76,8 +77,8 @@ public class Rangee implements GererLots{
 		this.tableauRangee = tableauRangee;
 	}
 
-	@Override
-	public void deplacer_lot(Lot l, Rangee r1, int vol, Rangee r2) {
+	
+	public static void deplacer_lot(int numLot, Rangee r1, int vol, Rangee r2) {
 		// TODO Auto-generated method stub
 		
 		//move out
@@ -104,7 +105,7 @@ public class Rangee implements GererLots{
 			System.out.println("Not enough stock!");
 		}
 		*/
-		retirer_lot(l,vol,r1);
+		retirer_lot(numLot,vol,r1);
 		
 		//move in
 		/*
@@ -129,13 +130,12 @@ public class Rangee implements GererLots{
 			}
 		}
 		*/
-		ajouter_lot(l,vol,r2);
+		if (retirable == true) ajouter_lot(numLot,vol,r2);
 	}
 
-	@Override
-	public void ajouter_lot(Lot l, int vol, Rangee r) {
+
+	public static void ajouter_lot(int numLot, int vol, Rangee r) {
 		// TODO Auto-generated method stub
-		int numLot = l.getID();
 		int vol_r = 0;
 		for (int i =0; i<r.tableauRangee.length;i++) {
 			if(r.tableauRangee[i] == 0) {
@@ -159,12 +159,10 @@ public class Rangee implements GererLots{
 		}
 	}
 
-	@Override
-	public void retirer_lot(Lot l, int vol, Rangee r) {
+
+	public static void retirer_lot(int numLot, int vol, Rangee r) {
 		// TODO Auto-generated method stub
-		int numLot = l.getID();
 		int vol_r = 0 ;    //volume of Lot in Rangee r
-		
 		for (int i=0;i<r.tableauRangee.length;i++) {
 			if(r.tableauRangee[i] == numLot) {
 				vol_r++;
@@ -175,6 +173,7 @@ public class Rangee implements GererLots{
 			System.out.println("Lot not found in the rangee indicated!");
 		}else if (vol_r >=vol) {
 			System.out.println("The stock of lot is available");
+			retirable = true;
 			int j = 0;
 			int tmp2 = vol;
 			while (tmp2 !=0 && j != r.tableauRangee.length) {
