@@ -7,8 +7,12 @@ public class Rangee {
 	private int largeur=1;
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
+
 	public int tableauRangee[] = new int[longueur];
 	static boolean retirable;
+
+	public int tableauLot[] = new int[longueur];
+
 	
 	public Rangee(int longueur) {
 		this.longueur=longueur;
@@ -66,15 +70,13 @@ public class Rangee {
 	
 	public int[] getTableauRangee() {
 
-		return tableauRangee;
+		return tableauLot;
 	}
 
 	
-	public void setTableauRangee(int[] tableauRangee) {
-		/*for(int i=0;i<longueur;i++) {
-			tableauRangee[i]=0;
-		}*/
-		this.tableauRangee = tableauRangee;
+	public void setTableauLot(int[] tableauRangee) {
+
+		this.tableauLot = tableauRangee;
 	}
 
 	
@@ -137,8 +139,8 @@ public class Rangee {
 	public static void ajouter_lot(int numLot, int vol, Rangee r) {
 		// TODO Auto-generated method stub
 		int vol_r = 0;
-		for (int i =0; i<r.tableauRangee.length;i++) {
-			if(r.tableauRangee[i] == 0) {
+		for (int i =0; i<r.tableauLot.length;i++) {
+			if(r.tableauLot[i] == 0) {
 				vol_r++;
 			}
 		}
@@ -149,9 +151,9 @@ public class Rangee {
 			System.out.println("Enough space for new lot, add effected!");
 			int i = 0;
 			int tmp3 = vol;
-			while (tmp3 != 0 && i != r.tableauRangee.length) {
-				if (r.tableauRangee[i] == 0) {
-					r.tableauRangee[i] = numLot;
+			while (tmp3 != 0 && i != r.tableauLot.length) {
+				if (r.tableauLot[i] == 0) {
+					r.tableauLot[i] = numLot;
 					tmp3--;
 					i++;
 				}
@@ -163,8 +165,9 @@ public class Rangee {
 	public static void retirer_lot(int numLot, int vol, Rangee r) {
 		// TODO Auto-generated method stub
 		int vol_r = 0 ;    //volume of Lot in Rangee r
-		for (int i=0;i<r.tableauRangee.length;i++) {
-			if(r.tableauRangee[i] == numLot) {
+
+		for (int i=0;i<r.tableauLot.length;i++) {
+			if(r.tableauLot[i] == numLot) {
 				vol_r++;
 			}
 		}
@@ -176,9 +179,9 @@ public class Rangee {
 			retirable = true;
 			int j = 0;
 			int tmp2 = vol;
-			while (tmp2 !=0 && j != r.tableauRangee.length) {
-				if (r.tableauRangee[j] == numLot) {
-					r.tableauRangee[j] = 0;
+			while (tmp2 !=0 && j != r.tableauLot.length) {
+				if (r.tableauLot[j] == numLot) {
+					r.tableauLot[j] = 0;
 					tmp2--;
 					j++;
 				}
