@@ -60,12 +60,12 @@ public class Main {
         }
 
 
-        
-        Rangee1[0].tableauLot[0]=1;
+        //TEST DE LOT
+        /*Rangee1[0].tableauLot[0]=1;
         Rangee1[0].tableauLot[1]=2;
         Rangee1[0].tableauLot[2]=2;
         Rangee1[1].tableauLot[3]=1;
-        Rangee1[1].tableauLot[1]=1;
+        Rangee1[1].tableauLot[1]=1; */   
         // RANGEE1 = 1 2 2 0
         // rangee2= 0 1 0 2 
         System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
@@ -90,6 +90,7 @@ public class Main {
         
         	if(choixJourInt==1) {
         		System.out.println("MANAGER LES LOTS");
+        		
         	}
         	else if(choixJourInt==2) {
         		String [] listeMeubleTEST = {"Table [1]","Bibliotheque [2] ", "Chaise [3]"};

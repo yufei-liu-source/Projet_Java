@@ -7,7 +7,7 @@ public class Meuble {
     Lot[] lotList;
     String piece;
     int dureeDeConstr;
-	public int listeMeubleAC[] = new int[10]; // liste de meuble a construire , NOT SURE TO ADD NOR NOT
+
 
     public Meuble(String name, Lot[] listLots, String piece, int dureeDeConstr) {
         this.name = name;
