@@ -90,8 +90,69 @@ public class Main {
         
         	if(choixJourInt==1) {
         		System.out.println("MANAGER LES LOTS");
-        		
+
+        		System.out.println("Comment voulez-vous manager les lots?"+"\n"+"Deplacer [0]  ;Ajouter [1] ; Suprimer [2]"+"\n"+"Tapper le chiffre correspondant: ");
+        		String choixGererLots = myObj.nextLine();
+        		int choixGererLotsInt = Integer.parseInt(choixGererLots);
+        		switch(choixGererLotsInt) {
+        		case 1:
+        			System.out.println("Quel est l'ID de lots voulez vous ajouter?");
+        			String idLots_ajouter = myObj.nextLine();
+        			int idAjoute = Integer.parseInt(idLots_ajouter);
+        			/*Verification d'existence de lot
+        			*/
+        			System.out.println("Combien de lots voulez vous ajouter?"+"\n"+"Tappez le chiffre de volume:");
+        			String volume_ajouter = myObj.nextLine();
+        			int vAjoute = Integer.parseInt(volume_ajouter);
+        			
+        			System.out.println("Vous voulez l'ajouter a quelle rangee?"+"\n"+"Tappez l'identifiant de rangee:");
+        			String rangee_ajouter = myObj.nextLine();
+        			int rAjoute = Integer.parseInt(rangee_ajouter);
+        			
+        			Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
+        			break;
+        			
+        		case 2:
+        			System.out.println("Vous voulez supprimer le lot de quelle rangee?"+"\n"+"Tappez l'identifiant de rangee:");
+        			String rangee_supp = myObj.nextLine();
+        			int rSupp = Integer.parseInt(rangee_supp);
+        			
+        			System.out.println("Quel est l'ID de lots voulez vous supprimer?");
+        			String idLots_supp = myObj.nextLine();
+        			int idSupp = Integer.parseInt(idLots_supp);
+        			
+        			System.out.println("Combien de lots voulez vous supprimer?"+"\n"+"Tappez le chiffre de volume:");
+        			String volume_supp= myObj.nextLine();
+        			int vSupp = Integer.parseInt(volume_supp);
+        			
+        			Rangee1[rSupp].retirer_lot(idSupp, vSupp);
+        			break;
+        			
+        		case 0: 
+        			System.out.println("Quel est l'ID de lots voulez vous deplacer?");
+        			String idLots_deplacer = myObj.nextLine();
+        			int idDeplace = Integer.parseInt(idLots_deplacer);
+        			
+        			System.out.println("Quelle est la rangee originale?"+"\n"+"Tappez l'identifiant de rangee:");
+        			String rangee_dep1 = myObj.nextLine();
+        			int rdep1 = Integer.parseInt(rangee_dep1);
+        			
+        			System.out.println("Combien de lots voulez vous deplacer?"+"\n"+"Tappez le chiffre de volume:");
+        			String volume_dep= myObj.nextLine();
+        			int vDep = Integer.parseInt(volume_dep);
+        			
+        			System.out.println("Quelle est la rangee arrivee?"+"\n"+"Tappez l'identifiant de rangee:");
+        			String rangee_dep2 = myObj.nextLine();
+        			int rdep2 = Integer.parseInt(rangee_dep2);
+        			
+        			Rangee1[rdep1].deplacer_lot(idDeplace, vDep, Rangee1[rdep2]);
+        			break;
+        		}
+                System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
+                System.out.println("Rangee numero 2 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
+
         	}
+        	
         	else if(choixJourInt==2) {
         		String [] listeMeubleTEST = {"Table [1]","Bibliotheque [2] ", "Chaise [3]"};
         		System.out.println("FAIRE UN MEUBLE");
