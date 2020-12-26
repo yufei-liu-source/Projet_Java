@@ -80,7 +80,7 @@ public class Rangee {
 	}
 
 	
-	public static void deplacer_lot(int numLot, Rangee r1, int vol, Rangee r2) {
+	public void deplacer_lot(int numLot, int vol, Rangee r2) {
 		// TODO Auto-generated method stub
 		
 		//move out
@@ -107,7 +107,7 @@ public class Rangee {
 			System.out.println("Not enough stock!");
 		}
 		*/
-		retirer_lot(numLot,vol,r1);
+		this.retirer_lot(numLot,vol);
 		
 		//move in
 		/*
@@ -132,15 +132,15 @@ public class Rangee {
 			}
 		}
 		*/
-		if (retirable == true) ajouter_lot(numLot,vol,r2);
+		if (retirable == true) r2.ajouter_lot(numLot,vol);
 	}
 
 
-	public static void ajouter_lot(int numLot, int vol, Rangee r) {
+	public void ajouter_lot(int numLot, int vol) {
 		// TODO Auto-generated method stub
 		int vol_r = 0;
-		for (int i =0; i<r.tableauLot.length;i++) {
-			if(r.tableauLot[i] == 0) {
+		for (int i =0; i< this.tableauLot.length;i++) {
+			if(this.tableauLot[i] == 0) {
 				vol_r++;
 			}
 		}
@@ -151,9 +151,9 @@ public class Rangee {
 			System.out.println("Enough space for new lot, add effected!");
 			int i = 0;
 			int tmp3 = vol;
-			while (tmp3 != 0 && i != r.tableauLot.length) {
-				if (r.tableauLot[i] == 0) {
-					r.tableauLot[i] = numLot;
+			while (tmp3 != 0 && i != this.tableauLot.length) {
+				if (this.tableauLot[i] == 0) {
+					this.tableauLot[i] = numLot;
 					tmp3--;
 					i++;
 				}
@@ -162,12 +162,12 @@ public class Rangee {
 	}
 
 
-	public static void retirer_lot(int numLot, int vol, Rangee r) {
+	public void retirer_lot(int numLot, int vol) {
 		// TODO Auto-generated method stub
 		int vol_r = 0 ;    //volume of Lot in Rangee r
 
-		for (int i=0;i<r.tableauLot.length;i++) {
-			if(r.tableauLot[i] == numLot) {
+		for (int i=0;i<this.tableauLot.length;i++) {
+			if(this.tableauLot[i] == numLot) {
 				vol_r++;
 			}
 		}
@@ -179,9 +179,9 @@ public class Rangee {
 			retirable = true;
 			int j = 0;
 			int tmp2 = vol;
-			while (tmp2 !=0 && j != r.tableauLot.length) {
-				if (r.tableauLot[j] == numLot) {
-					r.tableauLot[j] = 0;
+			while (tmp2 !=0 && j != this.tableauLot.length) {
+				if (this.tableauLot[j] == numLot) {
+					this.tableauLot[j] = 0;
 					tmp2--;
 					j++;
 				}

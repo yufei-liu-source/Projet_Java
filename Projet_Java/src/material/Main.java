@@ -108,7 +108,7 @@ public class Main {
         			String rangee_ajouter = myObj.nextLine();
         			int rAjoute = Integer.parseInt(rangee_ajouter);
         			
-        			Rangee.ajouter_lot(idAjoute, vAjoute, Rangee1[rAjoute]);
+        			Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
         			break;
         			
         		case 2:
@@ -124,7 +124,7 @@ public class Main {
         			String volume_supp= myObj.nextLine();
         			int vSupp = Integer.parseInt(volume_supp);
         			
-        			Rangee.retirer_lot(idSupp, vSupp, Rangee1[rSupp]);
+        			Rangee1[rSupp].retirer_lot(idSupp, vSupp);
         			break;
         			
         		case 0: 
@@ -144,9 +144,11 @@ public class Main {
         			String rangee_dep2 = myObj.nextLine();
         			int rdep2 = Integer.parseInt(rangee_dep2);
         			
-        			Rangee.deplacer_lot(idDeplace, Rangee1[rdep1], vDep, Rangee1[rdep2]);
+        			Rangee1[rdep1].deplacer_lot(idDeplace, vDep, Rangee1[rdep2]);
         			break;
         		}
+                System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
+                System.out.println("Rangee numero 2 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
         	}
         	
         	else if(choixJourInt==2) {
