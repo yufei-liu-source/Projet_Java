@@ -7,7 +7,7 @@ public class Rangee {
 	private int largeur=1;
 	private int hauteur=1;
 	private int volume= longueur*largeur*hauteur;
-	static boolean retirable;
+	boolean retirable;
 	public int tableauLot[] = new int[longueur];
 
 	
