@@ -74,19 +74,22 @@ public class Main {
         /*Debut de la journee*/
         
         int countJour = 0;
+        boolean libre = true;
         
-        System.out.println("Que voulez-vous faire aujourd'hui ?"+"\n"+"RIEN [0]  ; MANAGER LES LOTS [1] ; FAIRE UN MEUBLE [2]"+"\n"+"Tapper le chiffre correspondant: ");
-        String choixJour = myObj.nextLine();  // Read user input
-        int choixJourInt= Integer.parseInt(choixJour);
-        System.out.println("Jour: " + countJour+ ", Choix du Jour : ");
+        while(libre) {
         
-        while(choixJourInt==0) {
-        	System.out.println("RIEN");
         	System.out.println("Que voulez-vous faire aujourd'hui ?"+"\n"+"RIEN [0]  ; MANAGER LES LOTS [1] ; FAIRE UN MEUBLE [2]"+"\n"+"Tapper le chiffre correspondant: ");
-        	String choixJour2 = myObj.nextLine();
-        	int choixJourInt2= Integer.parseInt(choixJour2);
-            choixJourInt=choixJourInt2;
-        }
+        	String choixJour = myObj.nextLine();  // Read user input
+        	int choixJourInt= Integer.parseInt(choixJour);
+        	System.out.println("Jour: " + countJour+ ", Choix du Jour : ");
+        
+        	while(choixJourInt==0) {
+        		System.out.println("RIEN");
+        		System.out.println("Que voulez-vous faire aujourd'hui ?"+"\n"+"RIEN [0]  ; MANAGER LES LOTS [1] ; FAIRE UN MEUBLE [2]"+"\n"+"Tapper le chiffre correspondant: ");
+        		String choixJour2 = myObj.nextLine();
+        		int choixJourInt2= Integer.parseInt(choixJour2);
+        		choixJourInt=choixJourInt2;
+        	}
         
         	if(choixJourInt==1) {
         		System.out.println("MANAGER LES LOTS");
@@ -109,7 +112,10 @@ public class Main {
         			String rangee_ajouter = myObj.nextLine();
         			int rAjoute = Integer.parseInt(rangee_ajouter);
         			
-        			Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
+        			if(rAjoute < Rangee1.length) {
+        				Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
+        				}
+        			else System.out.println("Rangee not found!");
         			break;
         			
         		case 2:
@@ -125,7 +131,10 @@ public class Main {
         			String volume_supp= myObj.nextLine();
         			int vSupp = Integer.parseInt(volume_supp);
         			
-        			Rangee1[rSupp].retirer_lot(idSupp, vSupp);
+        			if(rSupp < Rangee1.length) {
+            			Rangee1[rSupp].retirer_lot(idSupp, vSupp);
+        				}
+        			else System.out.println("Rangee not found!");
         			break;
         			
         		case 0: 
@@ -144,8 +153,13 @@ public class Main {
         			System.out.println("Quelle est la rangee arrivee?"+"\n"+"Tappez l'identifiant de rangee:");
         			String rangee_dep2 = myObj.nextLine();
         			int rdep2 = Integer.parseInt(rangee_dep2);
-        			
-        			Rangee1[rdep1].deplacer_lot(idDeplace, vDep, Rangee1[rdep2]);
+
+        			if(rdep1 < Rangee1.length) {
+        				if (rdep2 < Rangee1.length) {
+        					Rangee1[rdep1].deplacer_lot(idDeplace, vDep, Rangee1[rdep2]);
+        				}else System.out.println("Arrival rangee not found!");	
+        			}
+        			else System.out.println("Departure rangee not found!");
         			break;
         		}
                 System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
@@ -174,17 +188,9 @@ public class Main {
         			chaise.construireMeuble(chaise, Rangee1);
         		}
         			
-        		//added test HEAD
-        	
-
-        	//branch 'master' of https://github.com/yufei-liu-source/Projet_Java.git
+        		//added test HEAD  
+        	}
+        }
     }
-        	
-    }
-
-    
-        
-
-    
 }
 
