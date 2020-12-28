@@ -68,8 +68,10 @@ public class Main {
         Rangee1[1].tableauLot[1]=1; */   
         // RANGEE1 = 1 2 2 0
         // rangee2= 0 1 0 2 
-        System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
-        System.out.println("Rangee numero 2 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
+
+        /*for(int i=0; i<Rangee1.length;i++) {
+        	System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[i].getTableauRangee()));
+        }*/
 
         /*Debut de la journee*/
         
@@ -162,8 +164,11 @@ public class Main {
         			else System.out.println("Departure rangee not found!");
         			break;
         		}
-                System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
-                System.out.println("Rangee numero 2 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
+        		
+        		//tableau apres le management
+                for(int i=0; i<Rangee1.length;i++) {
+                	System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[i].getTableauRangee()));
+                }
 
         	}
         	
