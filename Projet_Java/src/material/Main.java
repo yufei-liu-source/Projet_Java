@@ -61,19 +61,23 @@ public class Main {
 
 
         //TEST DE LOT
-        /*Rangee1[0].tableauLot[0]=1;
+        Rangee1[0].tableauLot[0]=1;
         Rangee1[0].tableauLot[1]=2;
         Rangee1[0].tableauLot[2]=2;
         Rangee1[1].tableauLot[3]=1;
-        Rangee1[1].tableauLot[1]=1; */   
+        Rangee1[1].tableauLot[1]=1; 
+
         // RANGEE1 = 1 2 2 0
-        // rangee2= 0 1 0 2 
+        // rangee2= 0 1 2 2 
         System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
         System.out.println("Rangee numero 2 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
 
         /*Debut de la journee*/
         
         int countJour = 0;
+        System.out.println("Quel est votre role ? CHEF BRICO [0] ; CHEF STOCK [1] ; OUVRIER [2]");
+        String choixRole= myObj.nextLine();  // Read user input
+        int choixRoleInt= Integer.parseInt(choixRole);
         
         System.out.println("Que voulez-vous faire aujourd'hui ?"+"\n"+"RIEN [0]  ; MANAGER LES LOTS [1] ; FAIRE UN MEUBLE [2]"+"\n"+"Tapper le chiffre correspondant: ");
         String choixJour = myObj.nextLine();  // Read user input
@@ -90,29 +94,28 @@ public class Main {
         
         	if(choixJourInt==1) {
         		System.out.println("MANAGER LES LOTS");
-
-        		System.out.println("Comment voulez-vous manager les lots?"+"\n"+"Deplacer [0]  ;Ajouter [1] ; Suprimer [2]"+"\n"+"Tapper le chiffre correspondant: ");
-        		String choixGererLots = myObj.nextLine();
-        		int choixGererLotsInt = Integer.parseInt(choixGererLots);
-        		switch(choixGererLotsInt) {
-        		case 1:
-        			System.out.println("Quel est l'ID de lots voulez vous ajouter?");
-        			String idLots_ajouter = myObj.nextLine();
-        			int idAjoute = Integer.parseInt(idLots_ajouter);
-        			/*Verification d'existence de lot
-        			*/
+	        	System.out.println("Comment voulez-vous manager les lots?"+"\n"+"Deplacer [0] ; Ajouter [1] ; Suprimer [2]"+"\n"+"Tapper le chiffre correspondant: ");
+	        	String choixGererLots = myObj.nextLine();
+	       		int choixGererLotsInt = Integer.parseInt(choixGererLots);
+	       		switch(choixGererLotsInt) {
+	       		case 1:
+	       			System.out.println("Quel est l'ID de lots voulez vous ajouter?");
+	       			String idLots_ajouter = myObj.nextLine();
+	       			int idAjoute = Integer.parseInt(idLots_ajouter);
+	       			/*Verification d'existence de lot
+	       			*/
         			System.out.println("Combien de lots voulez vous ajouter?"+"\n"+"Tappez le chiffre de volume:");
-        			String volume_ajouter = myObj.nextLine();
-        			int vAjoute = Integer.parseInt(volume_ajouter);
-        			
-        			System.out.println("Vous voulez l'ajouter a quelle rangee?"+"\n"+"Tappez l'identifiant de rangee:");
-        			String rangee_ajouter = myObj.nextLine();
-        			int rAjoute = Integer.parseInt(rangee_ajouter);
-        			
-        			Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
-        			break;
-        			
-        		case 2:
+	        		String volume_ajouter = myObj.nextLine();
+	        		int vAjoute = Integer.parseInt(volume_ajouter);
+	        		
+	       			System.out.println("Vous voulez l'ajouter a quelle rangee?"+"\n"+"Tappez l'identifiant de rangee:");
+	       			String rangee_ajouter = myObj.nextLine();
+	       			int rAjoute = Integer.parseInt(rangee_ajouter);
+	       			
+	       			Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
+	       			break;
+	       			
+	       		case 2:
         			System.out.println("Vous voulez supprimer le lot de quelle rangee?"+"\n"+"Tappez l'identifiant de rangee:");
         			String rangee_supp = myObj.nextLine();
         			int rSupp = Integer.parseInt(rangee_supp);
@@ -132,27 +135,25 @@ public class Main {
         			System.out.println("Quel est l'ID de lots voulez vous deplacer?");
         			String idLots_deplacer = myObj.nextLine();
         			int idDeplace = Integer.parseInt(idLots_deplacer);
-        			
+	        			
         			System.out.println("Quelle est la rangee originale?"+"\n"+"Tappez l'identifiant de rangee:");
         			String rangee_dep1 = myObj.nextLine();
         			int rdep1 = Integer.parseInt(rangee_dep1);
-        			
+	        			
         			System.out.println("Combien de lots voulez vous deplacer?"+"\n"+"Tappez le chiffre de volume:");
         			String volume_dep= myObj.nextLine();
         			int vDep = Integer.parseInt(volume_dep);
-        			
+	        			
         			System.out.println("Quelle est la rangee arrivee?"+"\n"+"Tappez l'identifiant de rangee:");
         			String rangee_dep2 = myObj.nextLine();
         			int rdep2 = Integer.parseInt(rangee_dep2);
-        			
-        			Rangee1[rdep1].deplacer_lot(idDeplace, vDep, Rangee1[rdep2]);
-        			break;
-        		}
+	        			
+	       			Rangee1[rdep1].deplacer_lot(idDeplace, vDep, Rangee1[rdep2]);
+	       			break;
+	       		}
                 System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[0].getTableauRangee()));
                 System.out.println("Rangee numero 2 apres modification:"+ Arrays.toString(Rangee1[1].getTableauRangee()));
-
         	}
-        	
         	else if(choixJourInt==2) {
         		String [] listeMeubleTEST = {"Table [1]","Bibliotheque [2] ", "Chaise [3]"};
         		System.out.println("FAIRE UN MEUBLE");
@@ -160,18 +161,24 @@ public class Main {
         		String choixMeuble = myObj.nextLine();
             	int choixMeubleInt= Integer.parseInt(choixMeuble);
         		
-            	//Verification pour la creation du meuble :
+            	//Creer une table
             	
         		if(choixMeubleInt==1) {
         			table.construireMeuble(table, Rangee1);
+        			countJour+=table.dureeDeConstr;
+        			System.out.println("Jour: " + countJour);
         		}
-        		//creer une bibliotheque
+        		//Creer une bibliotheque
         		else if(choixMeubleInt==2) {
         			bibliotheque.construireMeuble(bibliotheque, Rangee1);
+        			countJour+=bibliotheque.dureeDeConstr;
+        			System.out.println("Jour: " + countJour);
         		}
         		// Creer une chaise
         		else if(choixMeubleInt==3) {
         			chaise.construireMeuble(chaise, Rangee1);
+        			countJour+=chaise.dureeDeConstr;
+        			System.out.println("Jour: " + countJour);
         		}
         			
         		//added test HEAD
@@ -187,4 +194,5 @@ public class Main {
 
     
 }
+
 
