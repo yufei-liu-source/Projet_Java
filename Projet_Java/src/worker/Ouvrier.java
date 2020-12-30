@@ -11,4 +11,22 @@ public class Ouvrier extends Personne{
 		this.specialite = specialite;
 	}
 
+
+	public String getSpecialite() {
+		return specialite;
+	}
+
+
+	public void setSpecialite(String specialite) {
+		this.specialite = specialite;
+	}
+
+
+	public int getSalaire() {
+		return salaire;
+	}
+	
+	
+	
+
 }

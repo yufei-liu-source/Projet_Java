@@ -7,6 +7,10 @@ public class Chef extends Personne {
 		super(identifiant, nom, prenom);
 		// TODO Auto-generated constructor stub
 	}
+
+	public int getSalaire() {
+		return salaire;
+	}
 	
 
 
