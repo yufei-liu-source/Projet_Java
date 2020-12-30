@@ -32,7 +32,7 @@ class ConstruireMeubleTest {
         // rangee2= 1 1 2 2 
         int output= test.possibiliteConstruireTable(test, Rangee1);
         System.out.println("test1");
-        assertEquals(output,1);
+        assertEquals(1,output);
         System.out.println("test2");
             
 	}

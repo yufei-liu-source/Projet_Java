@@ -11,6 +11,7 @@ public abstract class PieceDetachee {
     }
 
     public String getNom() {
+    	System.out.println("to push");
         return nom;
     }
 }
