@@ -67,7 +67,11 @@ public class Main {
         Rangee1[1].tableauLot[3]=1;
         Rangee1[1].tableauLot[1]=1; 
 
+<<<<<<< HEAD
         for(int i=0; i<Rangee1.length;i++) {
+=======
+        /*for(int i=0; i<Rangee1.length;i++) {
+>>>>>>> branch 'master' of https://github.com/yufei-liu-source/Projet_Java.git
         	System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[i].getTableauRangee()));
         }*/
 
@@ -233,3 +237,4 @@ public class Main {
     	}
     }
 }
+
