@@ -131,6 +131,20 @@ public class Rangee {
 		*/
 		if (retirable == true) r2.ajouter_lot(numLot,vol);
 	}
+	/*public boolean equals(Rangee[] o) {
+	    // self check
+	    if (this == o)
+	        return true;
+	    // null check
+	    if (o == null)
+	        return false;
+	    // type check and cast
+	    if (getClass() != o.getClass())
+	        return false;
+	    Rangee[] rangee = (Rangee[]) o;
+	    // field comparison
+	    return Rangee.equals(tableauLot, Rangee[].tableaulot);
+	}*/
 
 
 	public void ajouter_lot(int numLot, int vol) {

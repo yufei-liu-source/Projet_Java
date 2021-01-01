@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 
@@ -24,16 +25,16 @@ public class Main {
     	/* Creation de l'Entrepot par l'utilisateur*/
     	
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Combien de Rangee dans l'entrepot ? ");
+        System.out.println("Combien de rangées dans l'entrepot ? ");
         String saisieNbRangee = myObj.nextLine();  // Read user input
-        System.out.println("Nombre de rangee cree pour l'entrepot : " + saisieNbRangee);  // Output user input
+        System.out.println("Nombre de rangées cree pour l'entrepot : " + saisieNbRangee);  // Output user input
         int saisieNbRangeeInt=Integer.parseInt(saisieNbRangee);
         Entrepot Entrepot1= new Entrepot(saisieNbRangeeInt);
         
         /*Creation des rangees demandees */
-        System.out.println("Quelle est la longueur d'une rangee ? ");
+        System.out.println("Combien de lots peut contenir une rangée ? ");
         String saisieLongueurRangee = myObj.nextLine();  // Read user input
-        System.out.println("Longueur d'une rangee : " + saisieLongueurRangee);
+        System.out.println("Une rangée peut contenir : " + saisieLongueurRangee + " lots");
         int saisieLongueurRangeeInt= Integer.parseInt(saisieLongueurRangee);
         
         Rangee [] Rangee1 = new Rangee[saisieNbRangeeInt];
@@ -60,20 +61,16 @@ public class Main {
         }
 
 
-        //TEST DE LOT
-        /*Rangee1[0].tableauLot[0]=1;
-        Rangee1[0].tableauLot[1]=2;
-        Rangee1[0].tableauLot[2]=2;
-        Rangee1[1].tableauLot[3]=1;
-        Rangee1[1].tableauLot[1]=1; 
-
-<<<<<<< HEAD
-        for(int i=0; i<Rangee1.length;i++) {
-=======
-        /*for(int i=0; i<Rangee1.length;i++) {
->>>>>>> branch 'master' of https://github.com/yufei-liu-source/Projet_Java.git
-        	System.out.println("Rangee numero 1 apres modification:"+ Arrays.toString(Rangee1[i].getTableauRangee()));
-        }*/
+        //Lot de base céee aléatoirement
+        Rangee1[0].tableauLot[0]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        Rangee1[0].tableauLot[1]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        Rangee1[0].tableauLot[2]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        Rangee1[1].tableauLot[3]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        Rangee1[1].tableauLot[1]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        Rangee1[1].tableauLot[0]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        
+        System.out.println("Vos lots de base sont : "+ "\n Rangee 1: " + Arrays.toString(Rangee1[0].getTableauRangee())
+        		+"\n Rangee 2: " + Arrays.toString(Rangee1[1].getTableauRangee()));
 
 
         /*Debut de la journee*/
@@ -129,6 +126,7 @@ public class Main {
 	    			
 	    				if(rAjoute < Rangee1.length) {
 	    					Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
+
 	    					}
 	    				else System.out.println("Rangee not found!");
 	    				break;
@@ -178,9 +176,9 @@ public class Main {
 	    				break;
 	    			}
 	    			
-	    			//Affichage des rangees apres le management de Lots
-	    	        for(int i=0;i<Entrepot.getNbRangee();i++) {
-	    	            System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
+	    		//Affichage des rangees apres le management de Lots
+	    	       for(int i=0;i<Entrepot.getNbRangee();i++) {
+	    	           System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
 	    	        }
 	    			
 	    		}
