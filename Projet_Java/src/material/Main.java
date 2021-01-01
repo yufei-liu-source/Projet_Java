@@ -25,18 +25,18 @@ public class Main {
     	/* Creation de l'Entrepot par l'utilisateur*/
     	
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Combien de rangées dans l'entrepot ? ");
+        System.out.println("Combien de rangées dans l'entrepot ? (Minimum 2) ");
         String saisieNbRangee = myObj.nextLine();  // Read user input
         System.out.println("Nombre de rangées cree pour l'entrepot : " + saisieNbRangee);  // Output user input
         int saisieNbRangeeInt=Integer.parseInt(saisieNbRangee);
         Entrepot Entrepot1= new Entrepot(saisieNbRangeeInt);
         
         /*Creation des rangees demandees */
-        System.out.println("Combien de lots peut contenir une rangée ? ");
+        System.out.println("Combien de lots peut contenir une rangée ? (Minimum 2)");
         String saisieLongueurRangee = myObj.nextLine();  // Read user input
         System.out.println("Une rangée peut contenir : " + saisieLongueurRangee + " lots");
         int saisieLongueurRangeeInt= Integer.parseInt(saisieLongueurRangee);
-        
+
         Rangee [] Rangee1 = new Rangee[saisieNbRangeeInt];
         Arrays.fill(Rangee1,new Rangee(saisieNbRangeeInt));
         
@@ -64,16 +64,22 @@ public class Main {
         //Lot de base céee aléatoirement
         Rangee1[0].tableauLot[0]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
         Rangee1[0].tableauLot[1]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        Rangee1[0].tableauLot[2]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        Rangee1[1].tableauLot[3]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
         Rangee1[1].tableauLot[1]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
         Rangee1[1].tableauLot[0]=ThreadLocalRandom.current().nextInt(0, 2 + 1);
         
         System.out.println("Vos lots de base sont : "+ "\n Rangee 1: " + Arrays.toString(Rangee1[0].getTableauRangee())
         		+"\n Rangee 2: " + Arrays.toString(Rangee1[1].getTableauRangee()));
 
+        //Working Area
+        System.out.println("Votre espace de construction est le suivant : ");
+        Rangee [] WorkingArea = new Rangee[1];
+        Arrays.fill(WorkingArea,new Rangee(1));
+        int[] listedepartzero= new int[saisieLongueurRangeeInt];
+		Arrays.fill(listedepartzero, 0);
+		WorkingArea[0].setTableauLot(listedepartzero);
+        System.out.println(Arrays.toString(WorkingArea[0].getTableauRangee()));
 
-        /*Debut de la journee*/
+        //Debut de la journee
         
         int countJour = 0;
 
@@ -189,43 +195,184 @@ public class Main {
 	    			System.out.println("Quel meuble voulez vous monter ? "+ Arrays.toString(listeMeubleTEST));
 	    			String choixMeuble = myObj.nextLine();
 	    			int choixMeubleInt= Integer.parseInt(choixMeuble);
-	
+	    			
+	    			
+//-------------------------------------------------------------------   	
+	    			
 	            	//Creer une table
 	            	
 	        		if(choixMeubleInt==1) {
-	        			table.construireMeuble(table, Rangee1);
+	        			System.out.println("Pour creer une table il vous faut 3 planches et 1 vis");
+	        			System.out.println("Pour faire un meuble, il faut d'abord deplacer les lots dont vous avez besoin dans l'espace de construction");
+	        			System.out.println("Voici vos rangees pour l'instant : ");
+	        			
+	 	    	       for(int i=0;i<Entrepot.getNbRangee();i++) {
+		    	           System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
+		    	        }
+	 	    	      System.out.println("---Appuyez sur 0 pour continuer---");
+	 	    	      
+	 	    	        String choixContinue= myObj.nextLine();  // Read user input
+
+	 	    	        int choixContinueInt= Integer.parseInt(choixContinue);
+	 	    	        if (choixContinueInt==0) {
+		 	    	        boolean deplacement= true;
+		 	    	        while(deplacement==true) {	
+			    			int choixGererLotsInt = 0;
+			    			switch(choixGererLotsInt) {
+			    			case 0: 
+			    				System.out.println("Quel est l'ID de lots voulez vous deplacer?");
+			    				String idLots_deplacer = myObj.nextLine();
+			    				int idDeplace = Integer.parseInt(idLots_deplacer);
+			    			
+			    				System.out.println("Quelle est la rangee originale?"+"\n"+"Tappez l'identifiant de rangee:");
+			    				String rangee_dep1 = myObj.nextLine();
+			    				int rdep1 = Integer.parseInt(rangee_dep1);
+			    				
+			    				System.out.println("Combien de lots voulez vous deplacer?"+"\n"+"Tappez le chiffre de volume:");
+			    				String volume_dep= myObj.nextLine();
+			    				int vDep = Integer.parseInt(volume_dep);
+
+			    				if(rdep1 < Rangee1.length) {
+			    						Rangee1[rdep1].deplacer_lot(idDeplace, vDep, WorkingArea[0]);
+			    					}
+			    				else System.out.println("Departure rangee not found!");
+			    				break;
+			    			}
+			    			System.out.println(Arrays.toString(WorkingArea[0].getTableauRangee()));
+	 	    	        }
+		    			System.out.println("Voulez vous deplacer un autre lot ? Non[0] Oui[1]");
+		    	        String choixDeplacement= myObj.nextLine();  // Read 
+		    	        int choixDeplacementInt= Integer.parseInt(choixDeplacement);
+		    	        if(choixDeplacementInt==0) {
+		    	        	deplacement=false;
+		    	        }
+		    	        else {
+		    	        	deplacement=true;
+		    	        }
+		    	        
+		    	        table.construireMeuble(table, WorkingArea);
+		    			
 	        			countJour+=table.dureeDeConstr;
 	        			System.out.println("Jour: " + countJour);	
 	        		}
-	        		
+	 	    	        
+	 	    	        
+//-------------------------------------------------------------------   	        		
 	        		//Creer une bibliotheque
 	        		else if(choixMeubleInt==2) {
-	        			bibliotheque.construireMeuble(bibliotheque, Rangee1);
-	        			countJour+=bibliotheque.dureeDeConstr;
-	        			System.out.println("Jour: " + countJour);
+	        			System.out.println("Pour creer une bibliotheque il vous faut 4 planches et 2 vis");
 	        		}
+        			System.out.println("Pour faire un meuble, il faut d'abord deplacer les lots dont vous avez besoin dans l'espace de construction");
+        			System.out.println("Voici vos rangees pour l'instant : ");
+        			
+ 	    	       for(int i=0;i<Entrepot.getNbRangee();i++) {
+	    	           System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
+	    	        }
+ 	    	      System.out.println("---Appuyez sur 0 pour continuer---");
+ 	    	      
+ 	    	        String choixContinue2= myObj.nextLine();  // Read user input
+
+ 	    	        int choixContinueInt2= Integer.parseInt(choixContinue2);
+ 	    	        if (choixContinueInt2==0) {
+	 	    	        boolean deplacement= true;
+	 	    	        while(deplacement==true) {	
+		    			int choixGererLotsInt = 0;
+		    			switch(choixGererLotsInt) {
+		    			case 0: 
+		    				System.out.println("Quel est l'ID de lots voulez vous deplacer?");
+		    				String idLots_deplacer = myObj.nextLine();
+		    				int idDeplace = Integer.parseInt(idLots_deplacer);
+		    			
+		    				System.out.println("Quelle est la rangee originale?"+"\n"+"Tappez l'identifiant de rangee:");
+		    				String rangee_dep1 = myObj.nextLine();
+		    				int rdep1 = Integer.parseInt(rangee_dep1);
+		    				
+		    				System.out.println("Combien de lots voulez vous deplacer?"+"\n"+"Tappez le chiffre de volume:");
+		    				String volume_dep= myObj.nextLine();
+		    				int vDep = Integer.parseInt(volume_dep);
+
+		    				if(rdep1 < Rangee1.length) {
+		    						Rangee1[rdep1].deplacer_lot(idDeplace, vDep, WorkingArea[0]);
+		    					}
+		    				else System.out.println("Departure rangee not found!");
+		    				break;
+		    			}
+		    			System.out.println(Arrays.toString(WorkingArea[0].getTableauRangee()));
+ 	    	        }
+	    			System.out.println("Voulez vous deplacer un autre lot ? Non[0] Oui[1]");
+	    	        String choixDeplacement= myObj.nextLine();  // Read 
+	    	        int choixDeplacementInt= Integer.parseInt(choixDeplacement);
+	    	        if(choixDeplacementInt==0) {
+	    	        	deplacement=false;
+	    	        }
+	    	        else {
+	    	        	deplacement=true;
+	    	        }
+	    	        
+	    	        table.construireMeuble(bibliotheque, WorkingArea);
+	    			
+        			countJour+=bibliotheque.dureeDeConstr;
+        			System.out.println("Jour: " + countJour);	
+        		}
 	        		
+//-------------------------------------------------------------------    	        
 	        		// Creer une chaise
 	        		else if(choixMeubleInt==3) {
-	        			chaise.construireMeuble(chaise, Rangee1);
-	        			countJour+=chaise.dureeDeConstr;
-	        			System.out.println("Jour: " + countJour);
+	        			System.out.println("Pour creer une chaise il vous faut 2 planches et 1 vis");
+        			System.out.println("Pour faire un meuble, il faut d'abord deplacer les lots dont vous avez besoin dans l'espace de construction");
+        			System.out.println("Voici vos rangees pour l'instant : ");
+        			
+ 	    	       for(int i=0;i<Entrepot.getNbRangee();i++) {
+	    	           System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
+	    	        }
+ 	    	      System.out.println("---Appuyez sur 0 pour continuer---");
+ 	    	      
+ 	    	        String choixContinue3= myObj.nextLine();  // Read user input
+
+ 	    	        int choixContinueInt3= Integer.parseInt(choixContinue3);
+ 	    	        if (choixContinueInt3==0) {
+	 	    	        boolean deplacement= true;
+	 	    	        while(deplacement==true) {	
+		    			int choixGererLotsInt = 0;
+		    			switch(choixGererLotsInt) {
+		    			case 0: 
+		    				System.out.println("Quel est l'ID de lots voulez vous deplacer?");
+		    				String idLots_deplacer = myObj.nextLine();
+		    				int idDeplace = Integer.parseInt(idLots_deplacer);
+		    			
+		    				System.out.println("Quelle est la rangee originale?"+"\n"+"Tappez l'identifiant de rangee:");
+		    				String rangee_dep1 = myObj.nextLine();
+		    				int rdep1 = Integer.parseInt(rangee_dep1);
+		    				
+		    				System.out.println("Combien de lots voulez vous deplacer?"+"\n"+"Tappez le chiffre de volume:");
+		    				String volume_dep= myObj.nextLine();
+		    				int vDep = Integer.parseInt(volume_dep);
+
+		    				if(rdep1 < Rangee1.length) {
+		    						Rangee1[rdep1].deplacer_lot(idDeplace, vDep, WorkingArea[0]);
+		    					}
+		    				else System.out.println("Departure rangee not found!");
+		    				break;
+		    			}
+		    			System.out.println(Arrays.toString(WorkingArea[0].getTableauRangee()));
+ 	    	        }
+	    			System.out.println("Voulez vous deplacer un autre lot ? Non[0] Oui[1]");
+	    	        String choixDeplacement= myObj.nextLine();  // Read 
+	    	        int choixDeplacementInt= Integer.parseInt(choixDeplacement);
+	    	        if(choixDeplacementInt==0) {
+	    	        	deplacement=false;
+	    	        }
+	    	        else {
+	    	        	deplacement=true;
+	    	        }
+	    	        
+	    	        chaise.construireMeuble(chaise, WorkingArea);
+	    			
+        			countJour+=chaise.dureeDeConstr;
+        			System.out.println("Jour: " + countJour);	
+        		}
 	        		}
-	    			//Verification pour la creation du meuble :
-	        	
-	    			if(choixMeubleInt==1) {
-	    				table.construireMeuble(table, Rangee1);
-	    			}
-	    			//creer une bibliotheque
-	    			else if(choixMeubleInt==2) {
-	    				bibliotheque.construireMeuble(bibliotheque, Rangee1);
-	    			}
-	    			// Creer une chaise
-	    			else if(choixMeubleInt==3) {
-	    				chaise.construireMeuble(chaise, Rangee1);
-	    			}
-	    				
-	    			//added test HEAD  
+	        		}
 	
 	    		
 	    		}
