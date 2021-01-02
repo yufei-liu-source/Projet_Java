@@ -3,13 +3,12 @@ package material;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-
+import worker.Chef;
+import worker.Equipe;
+import worker.Ouvrier;
 
 public class Main {
 
@@ -19,11 +18,8 @@ public class Main {
         Meuble table = new Meuble("Table",new Lot[]{new Lot(new Vis(200,10),1),new Lot(new Planche(1000,500),3)},"Salon",3);
         Meuble chaise = new Meuble("Chaise",new Lot[]{new Lot(new Vis(200,10),1),new Lot(new Planche(1000,500),2)},"Salon",2);
         Meuble bibliotheque = new Meuble("Bibliotheque",new Lot[]{new Lot(new Vis(200,10),2),new Lot(new Planche(1000,500),4)},"Salon",4);
-        
-    	
-    	
+
     	/* Creation de l'Entrepot par l'utilisateur*/
-    	
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Combien de rangées dans l'entrepot ? (Minimum 2) ");
         String saisieNbRangee = myObj.nextLine();  // Read user input
@@ -74,28 +70,53 @@ public class Main {
         System.out.println("Votre espace de construction est le suivant : ");
         Rangee [] WorkingArea = new Rangee[1];
         Arrays.fill(WorkingArea,new Rangee(1));
-        int[] listedepartzero= new int[saisieLongueurRangeeInt];
+        int[] listedepartzero= new int[6];
 		Arrays.fill(listedepartzero, 0);
 		WorkingArea[0].setTableauLot(listedepartzero);
         System.out.println(Arrays.toString(WorkingArea[0].getTableauRangee()));
 
-        //Debut de la journee
         
-        int countJour = 0;
+        
+        
 
        /* System.out.println("Quel est votre role ? CHEF BRICO [0] ; CHEF STOCK [1] ; OUVRIER [2]");
         String choixRole= myObj.nextLine();  // Read user input
         int choixRoleInt= Integer.parseInt(choixRole);*/
-
-        boolean libre = true;
-
-    	while(true) {
-            
-    		if(!libre) {
-            	System.out.println("En train de travailler, revenez vous dans " + countJour+ " jours");
-                }  
-            else { 
+        
+        
+        //Creer un equipe
+        Chef c = new Chef(1, "Jimmy", "A");
+        Ouvrier o1 = new Ouvrier(1, "Leo", "B", "Salon");
+        Ouvrier o2 = new Ouvrier(2, "Louis", "C", "Salon");
+        Ouvrier o3 = new Ouvrier(3, "Hugo", "D", "Salon");
+        
+        ArrayList<Ouvrier> listE = new ArrayList();
+        Equipe e1 = new Equipe(1, c, listE);
+        e1.recruter(o1);
+        e1.recruter(o2);
+        e1.recruter(o3);
+        
+        int teamCompetence = e1.c.getCompetence()+e1.getListEquipe().size();
         		
+        boolean libre = true;
+        int countJour = 0;
+        int salaire = 0;
+        //Debut de la journee
+    	while(true) {           
+    		if(!libre) {    			
+    			salaire += e1.CountSalaire();
+            	System.out.println("En train de travailler, revenez vous dans " + countJour+ " jours");          	
+            	System.out.println("Salaire d'aujourd'hui: " + e1.CountSalaire() + " Euros");
+            	System.out.println("Salaire totale: " + salaire + " Euros");
+            	countJour--;
+            	if(countJour == 0) {
+            		libre = true;
+            	}
+            	System.out.println("---Appuyez sur 0 pour continuer---");	    	      
+	    	    String nextday = myObj.nextLine();  // Read user input3 
+    		}
+    		
+            else {         		
             	System.out.println("Que voulez-vous faire aujourd'hui ?"+"\n"+"RIEN [0]  ; MANAGER LES LOTS [1] ; FAIRE UN MEUBLE [2]"+"\n"+"Tapper le chiffre correspondant: ");
 	    		String choixJour = myObj.nextLine();  // Read user input
 	    		int choixJourInt= Integer.parseInt(choixJour);
@@ -110,6 +131,7 @@ public class Main {
 	    		}
 	    		
 	    		if(choixJourInt==1) {
+
 	    			System.out.println("MANAGER LES LOTS");
 	
 	    			System.out.println("Comment voulez-vous manager les lots?"+"\n"+"Deplacer [0]  ;Ajouter [1] ; Suprimer [2]"+"\n"+"Tapper le chiffre correspondant: ");
@@ -132,8 +154,43 @@ public class Main {
 	    			
 	    				if(rAjoute < Rangee1.length) {
 	    					Rangee1[rAjoute].ajouter_lot(idAjoute, vAjoute);
-
-	    					}
+	    					int days = vAjoute/teamCompetence;
+	    					int daysLeft = vAjoute%teamCompetence;
+	    				
+	    					//Calculer la duree de travailler et la salaire
+	    					if(days ==0 && daysLeft == 0 ) {
+	    						countJour = 0;
+	    						libre = true;
+	    					}else if(days == 0 && daysLeft != 0) {
+	    						libre = false;
+	    						if(vAjoute <= 1) {
+	    							e1.getListEquipe().get(0).beActive();
+	    						}
+	    						else if(vAjoute <= e1.c.getCompetence()) {
+		    						e1.c.beActive();		    						
+		    					}
+		    					else{
+		    						e1.c.beActive();
+		    						int n = vAjoute - e1.c.getCompetence();
+		    						while(n != 0){
+		    							e1.getListEquipe().get(n-1).beActive();
+		    							n--;
+		    						}
+		    					}
+	    						countJour++;
+	    					}else if(days != 0 && daysLeft == 0) {
+	    						libre = false;
+	    						e1.c.beActive();
+	    						for (Ouvrier o : e1.getListEquipe()) {
+	    							o.beActive();
+	    						}
+	    						countJour += days;
+	    					}/*else {
+	    						libre = false;
+	    						countJour = days + 1;
+	    						if ()
+	    					}*/
+	    				}
 	    				else System.out.println("Rangee not found!");
 	    				break;
 	    			
@@ -152,6 +209,42 @@ public class Main {
 	    			
 	    				if(rSupp < Rangee1.length) {
 	    					Rangee1[rSupp].retirer_lot(idSupp, vSupp);
+	    					int days = vSupp/teamCompetence;
+	    					int daysLeft = vSupp%teamCompetence;
+	    				
+	    					//Calculer la duree de travailler et la salaire
+	    					if(days ==0 && daysLeft == 0 ) {
+	    						countJour = 0;
+	    						libre = true;
+	    					}else if(days == 0 && daysLeft != 0) {
+	    						libre = false;
+	    						if(vSupp <= 1) {
+	    							e1.getListEquipe().get(0).beActive();
+	    						}
+	    						else if(vSupp <= e1.c.getCompetence()) {
+		    						e1.c.beActive();		    						
+		    					}
+		    					else{
+		    						e1.c.beActive();
+		    						int n = vSupp - e1.c.getCompetence();
+		    						while(n != 0){
+		    							e1.getListEquipe().get(n-1).beActive();
+		    							n--;
+		    						}
+		    					}
+	    						countJour++;
+	    					}else if(days != 0 && daysLeft == 0) {
+	    						libre = false;
+	    						e1.c.beActive();
+	    						for (Ouvrier o : e1.getListEquipe()) {
+	    							o.beActive();
+	    						}
+	    						countJour += days;
+	    					}/*else {
+	    						libre = false;
+	    						countJour = days + 1;
+	    						if ()
+	    					}*/
 	    					}
 	    				else System.out.println("Rangee not found!");
 	    				break;
@@ -176,6 +269,43 @@ public class Main {
 	    				if(rdep1 < Rangee1.length) {
 	    					if (rdep2 < Rangee1.length) {
 	    						Rangee1[rdep1].deplacer_lot(idDeplace, vDep, Rangee1[rdep2]);
+	    						
+		    					int days = vDep/teamCompetence;
+		    					int daysLeft = vDep%teamCompetence;
+		    				
+		    					//Calculer la duree de travailler et la salaire
+		    					if(days ==0 && daysLeft == 0 ) {
+		    						countJour = 0;
+		    						libre = true;
+		    					}else if(days == 0 && daysLeft != 0) {
+		    						libre = false;
+		    						if(vDep <= 1) {
+		    							e1.getListEquipe().get(0).beActive();
+		    						}
+		    						else if(vDep <= e1.c.getCompetence()) {
+			    						e1.c.beActive();		    						
+			    					}
+			    					else{
+			    						e1.c.beActive();
+			    						int n = vDep - e1.c.getCompetence();
+			    						while(n != 0){
+			    							e1.getListEquipe().get(n-1).beActive();
+			    							n--;
+			    						}
+			    					}
+		    						countJour++;
+		    					}else if(days != 0 && daysLeft == 0) {
+		    						libre = false;
+		    						e1.c.beActive();
+		    						for (Ouvrier o : e1.getListEquipe()) {
+		    							o.beActive();
+		    						}
+		    						countJour += days;
+		    					}/*else {
+		    						libre = false;
+		    						countJour = days + 1;
+		    						if ()
+		    					}*/
 	    					}else System.out.println("Arrival rangee not found!");	
 	    				}
 	    				else System.out.println("Departure rangee not found!");
@@ -186,7 +316,7 @@ public class Main {
 	    	       for(int i=0;i<Entrepot.getNbRangee();i++) {
 	    	           System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
 	    	        }
-	    			
+	    	       System.out.println("--------------------------------------------------");
 	    		}
     		
 	    		else if(choixJourInt==2) {
@@ -208,8 +338,8 @@ public class Main {
 	        			
 	 	    	       for(int i=0;i<Entrepot.getNbRangee();i++) {
 		    	           System.out.println("Rangee numero "+ i+ ":" + Arrays.toString(Rangee1[i].getTableauRangee()));
-		    	        }
-	 	    	      System.out.println("---Appuyez sur 0 pour continuer---");
+		    	        }	      
+	 	    	       System.out.println("---Appuyez sur 0 pour continuer---");
 	 	    	      
 	 	    	        String choixContinue= myObj.nextLine();  // Read user input
 
@@ -234,6 +364,42 @@ public class Main {
 
 			    				if(rdep1 < Rangee1.length) {
 			    						Rangee1[rdep1].deplacer_lot(idDeplace, vDep, WorkingArea[0]);
+				    					int days = vDep/teamCompetence;
+				    					int daysLeft = vDep%teamCompetence;
+				    				
+				    					//Calculer la duree de travailler et la salaire
+				    					if(days ==0 && daysLeft == 0 ) {
+				    						countJour = 0;
+				    						libre = true;
+				    					}else if(days == 0 && daysLeft != 0) {
+				    						libre = false;
+				    						if(vDep <= 1) {
+				    							e1.getListEquipe().get(0).beActive();
+				    						}
+				    						else if(vDep <= e1.c.getCompetence()) {
+					    						e1.c.beActive();		    						
+					    					}
+					    					else{
+					    						e1.c.beActive();
+					    						int n = vDep - e1.c.getCompetence();
+					    						while(n != 0){
+					    							e1.getListEquipe().get(n-1).beActive();
+					    							n--;
+					    						}
+					    					}
+				    						countJour++;
+				    					}else if(days != 0 && daysLeft == 0) {
+				    						libre = false;
+				    						e1.c.beActive();
+				    						for (Ouvrier o : e1.getListEquipe()) {
+				    							o.beActive();
+				    						}
+				    						countJour += days;
+				    					}/*else {
+				    						libre = false;
+				    						countJour = days + 1;
+				    						if ()
+				    					}*/
 			    					}
 			    				else System.out.println("Departure rangee not found!");
 			    				break;
@@ -293,6 +459,43 @@ public class Main {
 
 		    				if(rdep1 < Rangee1.length) {
 		    						Rangee1[rdep1].deplacer_lot(idDeplace, vDep, WorkingArea[0]);
+		    						
+			    					int days = vDep/teamCompetence;
+			    					int daysLeft = vDep%teamCompetence;
+			    				
+			    					//Calculer la duree de travailler et la salaire
+			    					if(days ==0 && daysLeft == 0 ) {
+			    						countJour = 0;
+			    						libre = true;
+			    					}else if(days == 0 && daysLeft != 0) {
+			    						libre = false;
+			    						if(vDep <= 1) {
+			    							e1.getListEquipe().get(0).beActive();
+			    						}
+			    						else if(vDep <= e1.c.getCompetence()) {
+				    						e1.c.beActive();		    						
+				    					}
+				    					else{
+				    						e1.c.beActive();
+				    						int n = vDep - e1.c.getCompetence();
+				    						while(n != 0){
+				    							e1.getListEquipe().get(n-1).beActive();
+				    							n--;
+				    						}
+				    					}
+			    						countJour++;
+			    					}else if(days != 0 && daysLeft == 0) {
+			    						libre = false;
+			    						e1.c.beActive();
+			    						for (Ouvrier o : e1.getListEquipe()) {
+			    							o.beActive();
+			    						}
+			    						countJour += days;
+			    					}/*else {
+			    						libre = false;
+			    						countJour = days + 1;
+			    						if ()
+			    					}*/
 		    					}
 		    				else System.out.println("Departure rangee not found!");
 		    				break;
@@ -350,6 +553,43 @@ public class Main {
 
 		    				if(rdep1 < Rangee1.length) {
 		    						Rangee1[rdep1].deplacer_lot(idDeplace, vDep, WorkingArea[0]);
+		    						
+			    					int days = vDep/teamCompetence;
+			    					int daysLeft = vDep%teamCompetence;
+			    				
+			    					//Calculer la duree de travailler et la salaire
+			    					if(days ==0 && daysLeft == 0 ) {
+			    						countJour = 0;
+			    						libre = true;
+			    					}else if(days == 0 && daysLeft != 0) {
+			    						libre = false;
+			    						if(vDep <= 1) {
+			    							e1.getListEquipe().get(0).beActive();
+			    						}
+			    						else if(vDep <= e1.c.getCompetence()) {
+				    						e1.c.beActive();		    						
+				    					}
+				    					else{
+				    						e1.c.beActive();
+				    						int n = vDep - e1.c.getCompetence();
+				    						while(n != 0){
+				    							e1.getListEquipe().get(n-1).beActive();
+				    							n--;
+				    						}
+				    					}
+			    						countJour++;
+			    					}else if(days != 0 && daysLeft == 0) {
+			    						libre = false;
+			    						e1.c.beActive();
+			    						for (Ouvrier o : e1.getListEquipe()) {
+			    							o.beActive();
+			    						}
+			    						countJour += days;
+			    					}/*else {
+			    						libre = false;
+			    						countJour = days + 1;
+			    						if ()
+			    					}*/
 		    					}
 		    				else System.out.println("Departure rangee not found!");
 		    				break;
